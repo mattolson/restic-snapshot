@@ -1,0 +1,35 @@
+#!/bin/bash
+#
+# Used to make a restic snapshot of local machine to Backblaze
+#
+# Environment variables expected to be set:
+# $HOME
+# $RESTIC_REPOSITORY
+# $RESTIC_PASSWORD
+# $AWS_ACCESS_KEY_ID
+# $AWS_SECRET_ACCESS_KEY
+
+# Exit on error
+set -o errexit
+
+# Create local snapshot with tmutil
+VOLUME_PATH="/System/Volumes/Data"
+SNAP_DATE=$(tmutil snapshot "$VOLUME_PATH" | tail -n1 | sed s/'Created local snapshot with date: '//)
+echo "Created snapshot $SNAP_DATE"
+
+# Mount it
+LOCAL_MOUNTPOINT="/tmp/restic-snapshot"
+mkdir "$LOCAL_MOUNTPOINT" || true
+umount "$LOCAL_MOUNTPOINT" || true
+mount_apfs -o rdonly -s "com.apple.TimeMachine.${SNAP_DATE}.local" "$VOLUME_PATH" "$LOCAL_MOUNTPOINT"
+
+# Run restic backup
+restic backup $HOME --exclude-file=$HOME/.local/etc/restic-snapshot.excludes --skip-if-unchanged || true
+
+# Delete local snapshot
+umount "$LOCAL_MOUNTPOINT"
+tmutil deletelocalsnapshots "$SNAP_DATE"
+
+# Clean up old restic snapshots
+restic forget --keep-hourly 24 --keep-daily 30 --keep-weekly 52 --keep-yearly 50 --prune || true
+

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.mattolson.restic-snapshot.plist</string>
+
+    <key>ProgramArguments</key>
+    <array>
+      <string>/Users/$USER/.local/bin/restic-snapshot</string>
+    </array>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/$USER/Library/Logs/restic-snapshot.log</string>
+
+    <key>StandardOutPath</key>
+    <string>/Users/$USER/Library/Logs/restic-snapshot.log</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+      <key>PATH</key>
+      <string><![CDATA[/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin]]></string>
+      <key>HOME</key>
+      <string><![CDATA[/Users/matt]]></string>
+      <key>RESTIC_REPOSITORY</key>
+      <string><![CDATA[$RESTIC_REPOSITORY]]></string>
+      <key>RESTIC_PASSWORD</key>
+      <string><![CDATA[$RESTIC_PASSWORD]]></string>
+      <key>AWS_ACCESS_KEY_ID</key>
+      <string><![CDATA[$AWS_ACCESS_KEY_ID]]></string>
+      <key>AWS_SECRET_ACCESS_KEY</key>
+      <string><![CDATA[$AWS_SECRET_ACCESS_KEY]]></string>
+    </dict>
+
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Minute</key>
+        <integer>10</integer>
+    </dict>
+</dict>
+</plist>
+

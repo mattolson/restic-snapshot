@@ -21,7 +21,7 @@
       <key>PATH</key>
       <string><![CDATA[/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin]]></string>
       <key>HOME</key>
-      <string><![CDATA[/Users/matt]]></string>
+      <string><![CDATA[/Users/$USER]]></string>
       <key>RESTIC_REPOSITORY</key>
       <string><![CDATA[$RESTIC_REPOSITORY]]></string>
       <key>RESTIC_PASSWORD</key>

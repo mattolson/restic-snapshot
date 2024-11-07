@@ -2,7 +2,7 @@
 #
 # Used to make a restic snapshot of local machine to Backblaze
 #
-# Environment variables expected to be set:
+# Environment variables expected to be set by LaunchAgent:
 # $HOME
 # $RESTIC_REPOSITORY
 # $RESTIC_PASSWORD
